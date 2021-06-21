@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 
 const jsonParser = bodyParser.json();
 //private data. create private.json with only mongo:// string 
-const uri = JSON.parse(fs.readFileSync('private.json'))
+const uri = proccess.env.mongoUrl;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect( err => {
