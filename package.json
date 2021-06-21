@@ -1,0 +1,28 @@
+{
+  "name": "test-task-nodeapi",
+  "version": "1.0.0",
+  "description": "Add private.json file to the root with url to your mongo database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deargosep/test-task-nodeapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deargosep/test-task-nodeapi/issues"
+  },
+  "homepage": "https://github.com/deargosep/test-task-nodeapi#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

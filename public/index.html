@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+    <style>
+        label,
+        button {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info">
+        <h1>API</h1>
+        <h3>All products</h3>
+        <p>
+            GET
+            /products
+        </p>
+        <h3>One product</h3>
+        <p>
+            GET
+            /products/:id
+
+            (mongo _id)
+        </p>
+        <h3>Create product</h3>
+        <p>
+            POST
+            /products/create
+        </p>
+        <h3>Delete product</h3>
+        <p>
+            DELETE
+            /products/:id/delete
+        </p>
+    </div>
+    <hr/>
+    <div id="app">
+    </div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.production.min.js"></script>
+    <script src="axios.min.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        function App() {
+            return (
+                <div>
+                    <List />
+                    <Form />
+                </div>
+            )
+        }
+
+        function List() {
+            const { useState, useEffect } = React
+
+            const [products, setProducts] = useState([]);
+                useEffect(() => {
+                getData();
+            })
+
+            function getData() {
+                axios.get('/products/').then(response => {
+                setProducts(response.data)
+            }).catch(err => {
+                alert('Error loading data!')
+            });
+        }
+        function del(id) {
+            axios.delete('/products/'+ id + '/delete')
+        }
+            return (
+                <div>
+                    <ul>
+                        {products.map(product => (
+                            <>
+                            <li key={product._id}><h3>{product.name}</h3><p>{product.description}</p><p>Price:{product.price}</p><button onClick={() => del(product._id)}>Delete</button></li>
+                        </>
+                        ))
+                    }
+                    </ul>
+                    </div>
+                );
+        }
+
+        function Form() {
+                    return (
+                        <form method="post" action="/products/create">
+                            <h3>Create product</h3>
+                            <label>Name</label>
+                            <input required name="name" placeholder="Name" />
+                            <label>Description</label>
+                            <input required name="description" placeholder="Description" />
+                            <label>Price</label>
+                            <input required name="price" placeholder="Price" />
+                            <button type="submit">Create</button>
+                        </form>
+                    )
+                }
+        ReactDOM.render(
+                    <App />,
+                    document.getElementById("app")
+                )
+    </script>
+</body>
+
+</html>
